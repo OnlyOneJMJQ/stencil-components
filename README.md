@@ -6,14 +6,6 @@ This is a starter project for building a standalone Web Component using Stencil.
 
 Stencil is also great for building entire apps. For that, use the [stencil-app-starter](https://github.com/ionic-team/stencil-app-starter) instead.
 
-# Stencil
-
-Stencil is a compiler for building fast web apps using Web Components.
-
-Stencil combines the best concepts of the most popular frontend frameworks into a compile-time rather than run-time tool.  Stencil takes TypeScript, JSX, a tiny virtual DOM layer, efficient one-way data binding, an asynchronous rendering pipeline (similar to React Fiber), and lazy-loading out of the box, and generates 100% standards-based Web Components that run in any browser supporting the Custom Elements v1 spec.
-
-Stencil components are just Web Components, so they work in any major framework or with no framework at all.
-
 ## Getting Started
 
 To start building a new web component using Stencil, clone this repo to a new directory:
@@ -27,7 +19,15 @@ git remote rm origin
 and run:
 
 ```bash
+// Install dependencies.
 npm install
+
+// Run Ganache CLI in a new tab or window.
+// Make sure to set a block time so we get
+// a regular stream of blocks.
+ganache-cli -b 1
+
+// Run the Stencil dev server.
 npm start
 ```
 
