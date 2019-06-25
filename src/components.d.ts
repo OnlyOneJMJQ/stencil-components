@@ -5,19 +5,12 @@
  */
 
 
-import '@stencil/core';
-
-import '@stencil/redux';
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-
   interface CurrentBlock {}
-  interface CurrentBlockAttributes extends StencilHTMLAttributes {}
-
   interface MyApp {}
-  interface MyAppAttributes extends StencilHTMLAttributes {}
-
   interface MyComponent {
     /**
     * The first name
@@ -32,34 +25,9 @@ export namespace Components {
     */
     'middle': string;
   }
-  interface MyComponentAttributes extends StencilHTMLAttributes {
-    /**
-    * The first name
-    */
-    'first'?: string;
-    /**
-    * The last name
-    */
-    'last'?: string;
-    /**
-    * The middle name
-    */
-    'middle'?: string;
-  }
 }
 
 declare global {
-  interface StencilElementInterfaces {
-    'CurrentBlock': Components.CurrentBlock;
-    'MyApp': Components.MyApp;
-    'MyComponent': Components.MyComponent;
-  }
-
-  interface StencilIntrinsicElements {
-    'current-block': Components.CurrentBlockAttributes;
-    'my-app': Components.MyAppAttributes;
-    'my-component': Components.MyComponentAttributes;
-  }
 
 
   interface HTMLCurrentBlockElement extends Components.CurrentBlock, HTMLStencilElement {}
@@ -79,26 +47,45 @@ declare global {
     prototype: HTMLMyComponentElement;
     new (): HTMLMyComponentElement;
   };
-
   interface HTMLElementTagNameMap {
-    'current-block': HTMLCurrentBlockElement
-    'my-app': HTMLMyAppElement
-    'my-component': HTMLMyComponentElement
-  }
-
-  interface ElementTagNameMap {
     'current-block': HTMLCurrentBlockElement;
     'my-app': HTMLMyAppElement;
     'my-component': HTMLMyComponentElement;
   }
-
-
-  export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
-  }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+declare namespace LocalJSX {
+  interface CurrentBlock extends JSXBase.HTMLAttributes<HTMLCurrentBlockElement> {}
+  interface MyApp extends JSXBase.HTMLAttributes<HTMLMyAppElement> {}
+  interface MyComponent extends JSXBase.HTMLAttributes<HTMLMyComponentElement> {
+    /**
+    * The first name
+    */
+    'first'?: string;
+    /**
+    * The last name
+    */
+    'last'?: string;
+    /**
+    * The middle name
+    */
+    'middle'?: string;
+  }
+
+  interface IntrinsicElements {
+    'current-block': CurrentBlock;
+    'my-app': MyApp;
+    'my-component': MyComponent;
+  }
+}
+
+export { LocalJSX as JSX };
+
+
+declare module "@stencil/core" {
+  export namespace JSX {
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+  }
+}
+
+

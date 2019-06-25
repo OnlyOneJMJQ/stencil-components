@@ -1,4 +1,5 @@
-import { Component, Prop } from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
+import '@stencil/redux';
 import { Store } from '@stencil/redux';
 import { drizzleStore } from '../../drizzle/store'; // index required due to bug
 
